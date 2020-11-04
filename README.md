@@ -27,6 +27,7 @@ $ docker-compose exec w2v_app /bin/bash
 
 
 <h2 id='operation'>実行手順</h2>
+
 - python webserver.py でサーバ起動
 - localhost:8888に接続
 
