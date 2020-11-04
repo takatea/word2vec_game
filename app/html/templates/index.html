@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class='text-center'>
+    <div class="m-5">
+        <div class="display-4">Word2Vecを用いた加減算単語当てゲーム</div>
+    </div>
+    <div class="m-5">
+        <button type="button" class="btn btn-info" style="font-size: 30px;"
+            onclick="location.href='{{url_for('game_used_word2vec')}}'"> ゲームへ </button>
+    </div>
+</div>
+{% endblock %}

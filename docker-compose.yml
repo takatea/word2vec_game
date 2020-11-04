@@ -1,0 +1,10 @@
+version: '2'
+services:
+  w2v_app:
+    build: .
+    container_name : w2v_app
+    tty: true
+    ports:
+     - "8888:8888"
+    volumes:
+     - ./app:/usr/src/app

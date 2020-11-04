@@ -1,0 +1,123 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" href="../static/css/game.css">
+
+<div class="container border border-secondary">
+    <header class="my-5 text-center border-bottom border-secondary">
+
+        <div class="h1">
+            <strong>
+                Word2Vecを用いた加減算単語当てゲーム (PC用)
+            </strong>
+        </div>
+    </header>
+
+
+    <div class="row" id='contents border border-secondary'>
+        <div class='aside col-2 text-center border-right border-secondary'>
+            <nav>
+                <ul>
+                    <li class="border-top border-bottom border-secondary">
+                        <button type="button" class="btn btn-info mx-1 my-3" id='rule_btn' data-toggle="modal"
+                            data-target=".modal-game_rule">
+                            ルール
+                        </button>
+                    </li>
+                    <li class="border-bottom border-secondary">
+                        <button type="button" class="btn btn-info mx-1 my-3" id='hint_btn' data-toggle="modal"
+                            data-target=".modal-wiki_hint">
+                            ヒント
+                        </button>
+                    </li>
+                    <li class="border-bottom border-secondary">
+                        <button type="button" class="btn btn-secondary mx-1 my-3" id='back_btn'
+                            onclick="location.href='{{url_for('index')}}'">トップ画面</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class='main col-10 mb-5 text-center' id='main_contants'>
+            <!-- スタートボタン -->
+            <button type="button" class="mx-auto my-5 btn btn-primary" id="start_button">スタート</button>
+
+            <!-- ゲーム中 -->
+            <div class="main_item">
+                <div class="input" id='input'>
+                    <input id="input_text" name="input_text" placeholder="足し引きする単語"></input>
+                </div>
+                <div class="m-3 btn-area text-center" id='btn-area'>
+                    <button type="button" class="btn btn-primary mx-1" id="plus"> ＋ </button>
+                    <button type="button" class="btn btn-danger mx-1" id="minus"> ー </button>
+                </div>
+            </div>
+
+            <!-- スタートボタン（ターゲット生成） -->
+            <div class='question'>
+                <!-- あとでJS側で格納される -->
+                <div id='question_area'></div>
+            </div>
+            <!-- 戻ってきた値はここに出力される -->
+            <div class="output text-center mt-5" id='output'>
+                <!-- 計算結果 -->
+                <div class='equation_space my-5' id='equation_space'></div>
+                <!-- 類似度結果 topn=12-->
+                <div class='similarity_table mx-auto mt-5' id='similarity_table'></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- modal contents start -->
+
+    <!-- wiki hint -->
+    <div class="modal fade modal-game_rule" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-fluid">
+            <div class="modal-content">
+                <div class='my-3 mx-5' id=rule>
+                    <div class="h1 text-center"><u><strong>ルール</u></strong></div>
+                    <div class="h2">スタート単語からゴール単語までどのような単語で加減算を行えばいいか10手以内に求める．</div>
+                    <ol>
+                        <li>Word2Vecの学習で構築した語彙の中からランダムでスタート単語が決定されます．</li>
+                        <li>難易度が高すぎたため，スタート単語との類似度が上位6位から15位までの単語をゴール単語としてランダム選択しています．</li>
+                        <li>加減算が行われた段階で現段階の類似度ランキングが表で出力されます．ランダムで出題されるため難しい単語があった場合のためにWikipediaAPIを用いて概要を抜き出したものがボタンを押すことで見ることができます．
+                        </li>
+                        <li>1タームごとのクリア条件は，計算結果の単語が類似度ランキングで上位5位以内に入ることです．</li>
+                    </ol>
+
+                    <p>
+                        ※もしわからない単語があればヒントボタンを押すことでWikipediaの情報を確認することができます．その情報をもとに共通している点，していない点を考えてみてください．
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- wiki hint -->
+    <div class="modal fade modal-wiki_hint" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-fluid">
+            <div class="modal-content">
+                <!-- wikipediaヒント 問題生成前の要素で初期化-->
+                <div class="wiki" id='wiki'>
+                    <h1 class="m-5 text-center"> 問題が生成されていません．</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal contents end -->
+
+
+</div>
+<footer class="my-2">
+    <div class='text-center' id="copyright">
+        <u>
+            <p><strong>Copyright © takat0627@github All Rights Reserved. </strong></p>
+        </u>
+    </div>
+</footer>
+
+<script src="../static/js/game.js"></script>
+{% endblock %}

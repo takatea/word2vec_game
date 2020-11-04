@@ -1,0 +1,64 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  min-height: 90vh;
+}
+
+div.aside {
+  min-height: 75vh;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#btn-area, #input{
+  display: none;
+}
+
+#input {
+  font-size: 30px;
+}
+
+#input_text::placeholder {
+  text-align: center;
+}
+
+.btn {
+  font-size: 20px;
+}
+
+#output {
+  font-size: 30px;
+}
+
+.similarity_table{
+  width: 60vh;
+  height: 40vh;
+}
+
+
+#wiki, #rule{
+  font-size: 2rem;
+}
+
+.main {
+  overflow: scroll;
+}
+
+.modal-dialog-fluid {
+  max-width: 100vh;
+}
+
+footer {
+  width: 100%;
+  padding: 30px 0;
+  position: absolute;
+  bottom: 0;
+}
+
+
