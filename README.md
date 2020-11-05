@@ -21,6 +21,7 @@ dockerやdocker-composeのインストールに関しては[Get Docker](https://
 また，コンテナ内での操作はローカル環境と同じになりますので，詳細は[実行手順](#operation)に従ってください．
 
 ```sh
+$ docker-compose build
 $ docker-compose up -d
 $ docker-compose exec w2v_app /bin/bash
 ```
