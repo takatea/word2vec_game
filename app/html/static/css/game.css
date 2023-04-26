@@ -16,7 +16,8 @@ ul {
   margin: 0;
 }
 
-#btn-area, #input{
+#btn-area,
+#input {
   display: none;
 }
 
@@ -36,13 +37,13 @@ ul {
   font-size: 30px;
 }
 
-.similarity_table{
+.similarity_table {
   width: 60vh;
   height: 40vh;
 }
 
-
-#wiki, #rule{
+#wiki,
+#rule {
   font-size: 2rem;
 }
 
@@ -60,5 +61,3 @@ footer {
   position: absolute;
   bottom: 0;
 }
-
-
