@@ -1,2 +1,2 @@
 app/data/wiki_*
-app/module/__pycache__/*
+__pycache__/
