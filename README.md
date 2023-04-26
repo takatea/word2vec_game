@@ -5,38 +5,41 @@
 
 ## 技術要素
 
-- フロント：HTML，CSS（+ Bootstrap4），Javascript（+ jQuery）
-- サーバサイド：Python3 (+ Flask)
+- フロント：HTML，CSS（Bootstrap4），Javascript（jQuery）
+- サーバサイド：Python3 (Flask)
 - Word2Vec の学習 : Gensim
 
 ## 実行環境
 
-### ローカル
+### データ準備
 
-実行に必要な Python のモジュールなどは requirements.txt にまとめていますので，参照していただければ幸いです．モジュールなどのインストールが終わった方は[実行手順](#operation)に従って実行してください．
+[こちら](/app/data/README.md)を参照して、 Word2Vec のモデルファイルをダウンロードしてきてください。
 
-### 仮想コンテナ(Docker)
+### ローカル環境
 
-Docker コンテナ上で実行できるように Dockerfile と docker-compose.yml も同時にアップロードしています．
-docker や docker-compose のインストールに関しては[Get Docker](https://docs.docker.com/get-docker/)を参照ください．MacOS の場合は`Docker Desktop on Mac`を入れた段階で docker-compose も同時に入ります．Linux の方は追加でインストールが必要かと思いますので，[Install Docker Compose](https://docs.docker.com/compose/install/)を参考にインストールしてください．
+実行に必要な Python のモジュールなどは requirements.txt にまとめていますので，参照していただければ幸いです．
+モジュールなどのインストールが終わった方は[実行手順](#operation)に従って実行してください．
 
-※ docker-compose を使わずに Dockerfile をビルドして出来たイメージを実行していただいても構いません．その場合，実行時に volume（$PWD/app:/usr/src/app）の指定とポートの指定（自ポート：8888）を忘れずにしてください．
-
-`word2vec_game`ディレクトリ内で以下のコマンドを叩いていただけるとコンテナ上へ入ることができます．
-また，コンテナ内での操作はローカル環境と同じになりますので，詳細は[実行手順](#operation)に従ってください．
-
-```sh
-$ docker-compose build
-$ docker-compose up -d
-$ docker-compose exec w2v_app /bin/bash
-```
-
-<h2 id='operation'>実行手順</h2>
+<h4 id='operation'>実行手順</h2>
 
 - python webserver.py でサーバ起動
 - localhost:8888 に接続
 
-また，実際に実行するためには Word2Vec のモデルが必要です．こちらは Google ドライブ上にアップロードしていますので，詳細は`/word2vec_game/app/data`の`README.md`を見ていただけると幸いです．
+### Docker Compose で立ち上げる
+
+docker や docker-compose のインストールに関しては[Get Docker](https://docs.docker.com/get-docker/)を参照ください．
+MacOS の場合は`Docker Desktop on Mac`を入れた段階で `docker compose` も同時に使うことができます．Linux をご利用の方は追加でインストールが必要かと思いますので，[Install Docker Compose](https://docs.docker.com/compose/install/)を参考にインストールしてください．
+
+```sh
+$ docker compose build --no-cache
+$ docker compose up -d
+
+# ログは以下のコマンドで確認できます
+$ docker compose logs -f
+
+```
+
+---
 
 ## アプリケーション概要
 
