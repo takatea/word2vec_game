@@ -4,7 +4,7 @@ function contentsCheck(requests) {
     // check
     console.log(req + ":" + requests[req]);
     if (requests[req] === "") {
-      alert(req.toUpperCase() + "は必須です．");
+      alert(req.toUpperCase() + "は必須です。");
       return false;
     }
   }
@@ -52,7 +52,7 @@ function addElementStart(response) {
 
   // 問題を作る
   // target1 -> 加減算単語 -> target2
-  // 10手以内に類似度ランキングでtarget2が上位5位以内に入るのを目指せ．
+  // 10手以内に類似度ランキングでtarget2が上位5位以内に入るのを目指せ。
   let question =
     "<h2>「" +
     targets["target1"] +
@@ -61,7 +61,7 @@ function addElementStart(response) {
     "」</h2>" +
     "<h4>10手以内に類似度ランキングで「" +
     targets["target2"] +
-    "」が上位5位以内に入るのを目指せ．</h4>";
+    "」が上位5位以内に入るのを目指せ。</h4>";
 
   // wiki tableを作成する
   // 1行目
@@ -119,15 +119,15 @@ function addElementGame(response) {
   // target_check
   if (response["target_check"] === "NG") {
     console.log("target_check : ERROR");
-    alert("スタートボタンを押してください．");
-    $("#question_area").append("スタートボタンを押してください．");
+    alert("スタートボタンを押してください。");
+    $("#question_area").append("スタートボタンを押してください。");
     return;
   }
   // word_checkがNGなら再度入力してもらう
   if (response["word_check"] === "NG") {
     console.log("word_check : ERROR");
-    alert("辞書に含まれていない単語です．");
-    $(".equation_space").append(eq + "<h3>辞書に含まれていない単語です．別の単語を入力してください．</h3>");
+    alert("辞書に含まれていない単語です。");
+    $(".equation_space").append(eq + "<h3>辞書に含まれていない単語です。別の単語を入力してください。</h3>");
     return;
   }
 
@@ -140,13 +140,13 @@ function addElementGame(response) {
     // document.getElementById("start_button").value = 'もう一度チャレンジ'
     $("#start_button").text("もう一度チャレンジ");
 
-    // スタートボタンを表示し，それ以外のボタンを非表示
+    // スタートボタンを表示し、それ以外のボタンを非表示
     $("#start_button").css("display", "block");
     $("#input").css("display", "none");
     $("#btn-area").css("display", "none");
 
     // ユーザからアクセス可能なヒント画面を所定の文に置き換える
-    $("#hint").text('<h1 class="m-5 text-center"> 問題が生成されていません．</h1>');
+    $("#hint").text('<h1 class="m-5 text-center"> 問題が生成されていません。</h1>');
 
     // 改行
     $(".equation_space").append("<h3>" + response["finish_print"] + "</h3>" + eq);

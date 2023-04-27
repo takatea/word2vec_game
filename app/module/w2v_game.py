@@ -16,7 +16,7 @@ class word2vec_game():
 
         self.model = word2vec.Word2Vec.load(
             "./data/wiki_neologd.model")  # load word2vec model
-        self.topn = 12  # 上位何位までの類似度を計算するか（現在12で固定する前提で実装，後に拡張予定）
+        self.topn = 12  # 上位何位までの類似度を計算するか（現在12で固定する前提で実装、後に拡張予定）
 
         self.target_num = 1000  # 問題数（サーバ起動時に事前に1000問生成する）
         self.pre_target()  # ターゲットを決定
@@ -26,7 +26,7 @@ class word2vec_game():
         self.pos = []  # word2vecモデルへ入力するポシティブ単語リスト（リロードなどで必ず初期化する）
         self.neg = []  # word2vecモデルへ入力するネガティブ単語リスト（リロードなどで必ず初期化する）
 
-        self.question_num = 0  # 質問制限は現段階ではもうけてないため問題生成のたびに加算（現状 => 生成した問題数に達した段階でエラーがでる，後に改善予定）
+        self.question_num = 0  # 質問制限は現段階ではもうけてないため問題生成のたびに加算（現状 => 生成した問題数に達した段階でエラーがでる、後に改善予定）
 
         self.did_target_out = False  # ターゲット生成の前にplusとかがされていないか
 
@@ -36,7 +36,7 @@ class word2vec_game():
         self.current_str = ''
         self.did_target_out = False
 
-        self.question_num = 0  # 再度生成をするわけではないので，問題を使い切った段階でエラーがでる（後に改善予定）
+        self.question_num = 0  # 再度生成をするわけではないので、問題を使い切った段階でエラーがでる（後に改善予定）
 
     ''' 結果の出力（もしクリアしていればクリアフラグをTrueにしてフロントへ返す） '''
 
@@ -46,7 +46,7 @@ class word2vec_game():
 
         # eq : 計算式（EQ : フランス　ー　パリ + 日本 (= 東京 類似度高い )）
         # target_check : OP (+ or -) が押されたときの戻り値でターゲットが生成されているかを表す
-        # word_check:単語があるか．
+        # word_check:単語があるか。
         # => ここにきてる段階でどちらもOK
         res = {'top12': dict(), 'target_check': 'OK', 'word_check': 'OK'}
 
@@ -62,7 +62,7 @@ class word2vec_game():
             if ((i < 5) and (data[0] == self.target_check_words[-1])):
                 clear_flag = True
 
-            # data[0]:単語，
+            # data[0]:単語、
             # data[1]:それに対応した類似度(stringに結局変わるのでここでformatで書き換える)
             res['top12'][data[0]] = '%.3f' % data[1]
 
@@ -70,9 +70,9 @@ class word2vec_game():
 
         # クリアしている場合
         if clear_flag:
-            # 名前は妥当じゃないかもしれないがいいのが思い浮かばないので，eqで揃える
+            # 名前は妥当じゃないかもしれないがいいのが思い浮かばないので、eqで揃える
             res['eq'] = out  # 改行はフロント側で判定
-            res['finish_print'] = 'クリア条件に達しました．'
+            res['finish_print'] = 'クリア条件に達しました。'
 
             res['finish'] = 'finish'  # スタートボタンを出すフラグ
 
@@ -81,7 +81,7 @@ class word2vec_game():
         # 10手に達した場合 => 失敗
         elif self.count >= 10:
             res['eq'] = out
-            res['finish_print'] = '10手に達したため失敗です．'
+            res['finish_print'] = '10手に達したため失敗です。'
             # スタートボタンを出すフラグ
             res['finish'] = 'finish'
             # ターゲットフラグを戻す
@@ -126,8 +126,8 @@ class word2vec_game():
         self.did_target_out = True
 
         # start_word
-        # => wikipediaに記事があることが前提なので，ここで無限loop
-        # => 基本的にあるので一回で終わるはず，なければ次のターゲットへ
+        # => wikipediaに記事があることが前提なので、ここで無限loop
+        # => 基本的にあるので一回で終わるはず、なければ次のターゲットへ
         while True:
             # ターゲット1 (開始単語) を取得
             target1 = self.target_words[self.target_index.pop(0)]
@@ -174,7 +174,7 @@ class word2vec_game():
         )
         res["top12"] = {}
         for data in top12:
-            # data[0]:単語，
+            # data[0]:単語、
             # data[1]:それに対応した類似度
             res['top12'][data[0]] = '%.3f' % data[1]
 
@@ -190,7 +190,7 @@ class word2vec_game():
             res = {'target_check': 'NG'}
             return json.dumps(res, ensure_ascii=False)
 
-        # リクエスト処理（'text':入力単語，'op':plus or minus)
+        # リクエスト処理（'text':入力単語、'op':plus or minus)
         res = json.loads(requests)
         word = res['word']
         op = res['op']
