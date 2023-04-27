@@ -1,8 +1,11 @@
-import re, wikipediaapi
+import re
+import wikipediaapi
 
 '''
 入力単語に基づいてWikipediaの記事を取得する
 '''
+
+
 def wikipediaSearch(search_text):
     res = {}
     wiki_wiki = wikipediaapi.Wikipedia('ja')
@@ -11,13 +14,13 @@ def wikipediaSearch(search_text):
     except:
         return None
 
-
     wiki_content = wiki_page.text
-    if len(wiki_content)==0:
+    if len(wiki_content) == 0:
         return None
 
     try:
-        search = [m for _,m in zip(range(2),re.finditer(r'\u002E|\u3002|．', wiki_content))][1]
+        search = [m for _, m in zip(range(2), re.finditer(
+            r'\u002E|\u3002|．', wiki_content))][1]
         index = search.span()[0]
         which = search[0]
 
@@ -41,8 +44,7 @@ def wikipediaSearch(search_text):
         # 最後を出す（削除）ー破壊的
         content.pop()
 
-    res['content'] = content # 配列(最大2）
+    res['content'] = content  # 配列(最大2）
     res['link'] = wiki_page.fullurl
     # dictが返る -> エラーもしくは何も文字が無い場合はNoneが上記で返る
     return res
-
