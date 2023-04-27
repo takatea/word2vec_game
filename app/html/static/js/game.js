@@ -45,6 +45,8 @@ function addElementStart(response) {
   let targets = response["targets"];
   // wiki_dict(content, link)
   let wiki = response["wiki"];
+  // 初期状態のtop12
+  let top12 = response["top12"];
   // ここでは初期の式が入るはず
   let eq = "<h5>" + response["eq"] + "</h5>";
 
@@ -77,6 +79,10 @@ function addElementStart(response) {
     wikiTable += '<a href="' + wikiData["link"] + '">Wikipediaリンク（' + raw + "）</a></td></tr>";
   }
   wikiTable += "</table>";
+
+  let top12Table = generateTop12Table(top12);
+  // 埋め込み
+  $("#similarity_table").append(top12Table);
 
   // 埋め込む
   $("#question_area").append(question);

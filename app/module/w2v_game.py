@@ -168,6 +168,16 @@ class word2vec_game():
         # 0回目のEQを追加
         res['eq'] = 'EQ(%d回): ' % (self.count) + target1
 
+        # 初期の類似度ランキングを計算
+        top12 = self.model.most_similar(
+            positive=[target1], topn=self.topn
+        )
+        res["top12"] = {}
+        for data in top12:
+            # data[0]:単語，
+            # data[1]:それに対応した類似度
+            res['top12'][data[0]] = '%.3f' % data[1]
+
         # json : {targets, wiki, eq}
         return json.dumps(res, ensure_ascii=False)
 
