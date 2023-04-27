@@ -84,6 +84,26 @@ function addElementStart(response) {
   $(".equation_space").append(eq);
 }
 
+function generateTop12Table(top12) {
+  // 1行目
+  let top12Table = '<table border="2"><tr><th colspan="3">類似度ランキング</th></tr><tr>'; //一つ目だけ<tr>つけておく
+  // 2行目以降
+  let i = 0;
+  for (let name in top12) {
+    // 3つごとに改行 -> 4つ目でいじる
+    if (i !== 0 && i % 3 === 0) {
+      top12Table += "</tr><tr><td>{0}位 {1}（{2}）</td>".format(i + 1, name, top12[name]);
+    } else {
+      top12Table += "<td>{0}位 {1}（{2}）</td>".format(i + 1, name, top12[name]);
+    }
+    i++;
+  }
+  // 最後閉じる
+  top12Table += "</tr></table>";
+
+  return top12Table;
+}
+
 // gameの埋め込み
 function addElementGame(response) {
   clearElementOp();
@@ -95,51 +115,40 @@ function addElementGame(response) {
     console.log("target_check : ERROR");
     alert("スタートボタンを押してください．");
     $("#question_area").append("スタートボタンを押してください．");
+    return;
   }
   // word_checkがNGなら再度入力してもらう
-  else if (response["word_check"] === "NG") {
+  if (response["word_check"] === "NG") {
     console.log("word_check : ERROR");
     alert("辞書に含まれていない単語です．");
     $(".equation_space").append(eq + "<h3>辞書に含まれていない単語です．別の単語を入力してください．</h3>");
-  } else {
-    // top12Tableを作成
-    // 1行目
-    let top12Table = '<table border="2"><tr><th colspan="3">類似度ランキング</th></tr><tr>'; //一つ目だけ<tr>つけておく
-    // 2行目以降
-    let i = 0;
-    for (let name in top12) {
-      // 3つごとに改行 -> 4つ目でいじる
-      if (i !== 0 && i % 3 === 0) {
-        top12Table += "</tr><tr><td>{0}位 {1}（{2}）</td>".format(i + 1, name, top12[name]);
-      } else {
-        top12Table += "<td>{0}位 {1}（{2}）</td>".format(i + 1, name, top12[name]);
-      }
-      i++;
-    }
-    // 最後閉じる
-    top12Table += "</tr></table>";
-
-    // 埋め込み
-    $("#similarity_table").append(top12Table);
-    // クリアなどの条件 -> ボタンを出す
-    if (response["finish"] === "finish") {
-      // document.getElementById("start_button").value = 'もう一度チャレンジ'
-      $("#start_button").text("もう一度チャレンジ");
-
-      // スタートボタンを表示し，それ以外のボタンを非表示
-      $("#start_button").css("display", "block");
-      $("#input").css("display", "none");
-      $("#btn-area").css("display", "none");
-
-      // ユーザからアクセス可能なヒント画面を所定の文に置き換える
-      $("#hint").text('<h1 class="m-5 text-center"> 問題が生成されていません．</h1>');
-
-      // 改行
-      $(".equation_space").append("<h3>" + response["finish_print"] + "</h3>" + eq);
-    } else {
-      $(".equation_space").append(eq);
-    }
+    return;
   }
+
+  let top12Table = generateTop12Table(top12);
+  // 埋め込み
+  $("#similarity_table").append(top12Table);
+
+  // クリアなどの条件 -> ボタンを出す
+  if (response["finish"] === "finish") {
+    // document.getElementById("start_button").value = 'もう一度チャレンジ'
+    $("#start_button").text("もう一度チャレンジ");
+
+    // スタートボタンを表示し，それ以外のボタンを非表示
+    $("#start_button").css("display", "block");
+    $("#input").css("display", "none");
+    $("#btn-area").css("display", "none");
+
+    // ユーザからアクセス可能なヒント画面を所定の文に置き換える
+    $("#hint").text('<h1 class="m-5 text-center"> 問題が生成されていません．</h1>');
+
+    // 改行
+    $(".equation_space").append("<h3>" + response["finish_print"] + "</h3>" + eq);
+
+    return;
+  }
+
+  $(".equation_space").append(eq);
 }
 
 function outputError(err) {
