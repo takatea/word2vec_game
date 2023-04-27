@@ -3,7 +3,7 @@ function contentsCheck(requests) {
   for (let req in requests) {
     // check
     console.log(req + ":" + requests[req]);
-    if (requests[req] == "") {
+    if (requests[req] === "") {
       alert(req.toUpperCase() + "は必須です．");
       return false;
     }
@@ -17,7 +17,7 @@ function contentsCheck(requests) {
     String.prototype.format = function () {
       let args = arguments;
       return this.toString().replace(/{(\d+)}/g, function (match, number) {
-        return typeof args[number] != "undefined" ? args[number] : match;
+        return typeof args[number] !== "undefined" ? args[number] : match;
       });
     };
   }
@@ -91,13 +91,13 @@ function addElementGame(response) {
   let top12 = response["top12"];
   let eq = "<h5>" + response["eq"] + "</h5>";
   // target_check
-  if (response["target_check"] == "NG") {
+  if (response["target_check"] === "NG") {
     console.log("target_check : ERROR");
     alert("スタートボタンを押してください．");
     $("#question_area").append("スタートボタンを押してください．");
   }
   // word_checkがNGなら再度入力してもらう
-  else if (response["word_check"] == "NG") {
+  else if (response["word_check"] === "NG") {
     console.log("word_check : ERROR");
     alert("辞書に含まれていない単語です．");
     $(".equation_space").append(eq + "<h3>辞書に含まれていない単語です．別の単語を入力してください．</h3>");
@@ -109,7 +109,7 @@ function addElementGame(response) {
     let i = 0;
     for (let name in top12) {
       // 3つごとに改行 -> 4つ目でいじる
-      if (i != 0 && i % 3 == 0) {
+      if (i !== 0 && i % 3 === 0) {
         top12Table += "</tr><tr><td>{0}位 {1}（{2}）</td>".format(i + 1, name, top12[name]);
       } else {
         top12Table += "<td>{0}位 {1}（{2}）</td>".format(i + 1, name, top12[name]);
@@ -122,7 +122,7 @@ function addElementGame(response) {
     // 埋め込み
     $("#similarity_table").append(top12Table);
     // クリアなどの条件 -> ボタンを出す
-    if (response["finish"] == "finish") {
+    if (response["finish"] === "finish") {
       // document.getElementById("start_button").value = 'もう一度チャレンジ'
       $("#start_button").text("もう一度チャレンジ");
 
